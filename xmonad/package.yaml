@@ -1,0 +1,12 @@
+name: xmonad-config
+version: 0.0.1
+dependencies:
+  - base >= 4.7 && < 5
+  - containers
+  - xmonad
+  - xmonad-contrib
+  - xmobar
+executables:
+  xmonad-config:
+    main: xmonad.hs
+    source-dirs: .

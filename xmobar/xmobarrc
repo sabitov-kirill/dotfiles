@@ -1,0 +1,46 @@
+Config { overrideRedirect = False
+       , font            = "xft:Fira Code Mono Nerd-10"
+       , additionalFonts = ["xft:Fira Code Mono Nerd-13"]
+       , bgColor  = "#2b2b2b"
+       , fgColor  = "#c7c7c7"
+       , position = BottomH 30
+       , commands = [ Run Cpu
+                        [ "-t", "<total>%"
+                        ] 50
+                    , Run MultiCoreTemp
+                        ["-t", "<avg>°C"
+                        , "-hwmonitor-path", "/sys/module/k10temp/drivers/pci:k10temp/0000:00:18.3/hwmon/hwmon3/"
+                        , "-L", "30", "-H", "90"
+                        , "-l", "green", "-n", "#c7c7c7", "-h", "red"
+                        , "--", "--mintemp", "20", "--maxtemp", "100"
+                        ] 50
+                    , Run Alsa "default" "Master" 
+                        [ "--template", "<volume>%" 
+                        ]
+                    , Run Kbd 
+                        [ ("us", "US")
+                        , ("ru", "RU")
+                        ]
+                    , Run DiskU 
+                        [ ("/", "<used>/<size>") 
+                        ] 
+                        [ "-L", "20"
+                        , "-H", "50"
+                        , "-m", "1"
+                        , "-p", "3"] 20
+                    , Run Memory 
+                        [ "--template", "<used>/<total>M"
+                        ] 10
+                    , Run Date "<fc=#7CDF7F>%H:%M</fc> %a %Y-%m-%d" "date" 10
+                    , Run XMonadLog
+                    ]
+       , sepChar  = "%"
+       , alignSep = "}{"
+       , template = "   %XMonadLog% \
+                                       \ } <fc=#7CDF7F><fn=1></fn></fc>   %cpu% (%multicoretemp%)   \
+                    \ <fc=#888888>|</fc>   <fc=#7CDF7F><fn=1></fn></fc>   %memory%  \
+                    \ <fc=#888888>|</fc>   <fc=#7CDF7F><fn=1></fn></fc>   %disku%  \
+                                       \ { <fc=#7CDF7F><fn=1></fn></fc>   %alsa:default:Master%  \
+                    \ <fc=#888888>|</fc>   <fc=#7CDF7F><fn=1></fn></fc>   %kbd%  \
+                    \ <fc=#888888>|</fc>   %date%   "
+       }

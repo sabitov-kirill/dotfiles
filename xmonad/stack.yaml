@@ -1,0 +1,7 @@
+resolver: lts-20.20  # or use your current resolver version
+
+packages:
+  - /home/ne1mnn/code/wm/xmonad
+  - /home/ne1mnn/code/wm/xmonad-contrib
+  - /home/ne1mnn/code/wm/xmobar
+  - .
