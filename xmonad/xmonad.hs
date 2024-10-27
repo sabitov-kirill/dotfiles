@@ -22,7 +22,7 @@ import           XMonad.Layout.Combo
 import           XMonad.Layout.ComboP
 import           XMonad.Layout.Grid
 import           XMonad.Layout.Reflect
-import           XMonad.Layout.Spacing          (spacingWithEdge)
+import           XMonad.Layout.Spacing          (spacingWithEdge, spacing)
 import           XMonad.Layout.Spiral           ()
 import           XMonad.Layout.Tabbed           (shrinkText, tabbed)
 import           XMonad.Layout.ThreeColumns     (ThreeCol (ThreeCol))
@@ -33,10 +33,14 @@ import qualified XMonad.StackSet                as W
 import           XMonad.StackSet                as W (focusDown, focusMaster,
                                                       focusUp, greedyView,
                                                       shift, sink, swapDown,
-                                                      swapMaster, swapUp)
+                                                      swapMaster, swapUp, RationalRect (RationalRect))
 import           XMonad.Util.EZConfig           (additionalKeysP)
 import           XMonad.Util.Loggers            (logTitles)
 import           XMonad.Util.SpawnOnce          (spawnOnce)
+import XMonad.Util.WindowProperties
+import XMonad.Hooks.ManageHelpers (doFullFloat, doRectFloat)
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed (named)
 
 toggleFullscreen :: X ()
 toggleFullscreen =
@@ -54,9 +58,9 @@ accentColorBright = "#7CDF7F"
 inactiveColor = "#434343"
 
 -- XMobar configuration
-xmonadXmobarProp = withEasySB (statusBarProp "xmobar" (pure xmobarPP)) toggleStrutsKey
+xmonadXmobarProp = withEasySB (statusBarProp "xmobar" (pure xmobarPP)) defToggleStrutsKey
   where
-    toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
+    -- toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
 
     xmobarPP :: PP
     xmobarPP = def
@@ -96,27 +100,40 @@ xmonadConfig =
       focusedBorderColor = accentColor
     } `additionalKeysP` xmonadAdditionalKeys
     where
+
       -- Strartup hook
       xmonadStartupHook :: X ()
       xmonadStartupHook = do
           spawnOnce "picom"
+          spawnOnce "xsetroot -solid \"#212121\""
+          -- spawnOnce $ "feh --bg-fill " ++ wallpaper
+      wallpaper = "~/pictures/wallpapers/gray.png"
 
       -- Windows manage hook
-      xmonadManageHook = placeHook (inBounds (underMouse (0, 0)))
+      xmonadManageHook = placeHook (inBounds (underMouse (0.5, 0.5)))
         <+> composeAll
           [ className =? "Pavucontrol" --> doFloat
           , className =? "Xdg-desktop-portal-gtk" --> doFloat
-          , className =? "Thunar" --> doFloat
+          , className =? "org.gnome.Nautilus" --> doFloat
+          , propertyToQuery (And (ClassName "TelegramDesktop") (Title "Media viewer")) --> doRectFloat (RationalRect 0 0 1 1)
           ]
         <+> manageHook def
 
       -- Layouts
       xmonadLayouts =
-        CenterMainFluid 2 (3/100) (60/100)
-        ||| combineTwoP (TwoPane 0.03 0.5) Full (Mirror $ Tall 1 (3/100) (3/5)) (ClassName "Code")
+        centered
+        ||| twoPaneNamed
+        ||| Grid
+        where
+          centered = named "Centered" (CenterMainFluid 2 (3/100) (1/2))
+          twoPaneNamed = named "Two Pane (Coding)" twoPane
+          twoPane = combineTwoP (TwoPane (3/100) 0.33) (Tall 2 0 (1/2)) (Mirror $ Tall 1 0 (1/2)) bigPaneWindowClasses
+          bigPaneWindowClasses = ClassName "jetbrains-idea" `Or` ClassName "jetbrains-clion" `Or` ClassName "jetbrains-pycharm" `Or` ClassName "Code"
 
       xmonadLayoutHook =
-        spacingWithEdge 4 $
+        avoidStruts $
+        spacing 9 $
+        smartBorders $
         windowNavigation $
         centeredIfSingle 0.5 0.65 xmonadLayouts
 
