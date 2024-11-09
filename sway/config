@@ -212,11 +212,13 @@ bar {
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     status_command ~/.config/sway/bar.sh
+    workspace_min_width 34
 
     colors {
         statusline #ffffff
         background #1A1A1A
-        active_workspace #000000 #C3E88D #CCCCCC
+        focused_workspace #93d479 #93d479 #212121
+        active_workspace #32323200 #32323200 #5c5c5c
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }

@@ -20,15 +20,14 @@ theme_colors = {
     "fg": "#CCCCCC",
     "bg_menu": "#1A1A1A",
     "fg_menu": "#CCCCCC",
-    "bg_accent": "#C3E88D",
-    "fg_accent": "#4B6E16",
+    "bg_accent": "#93d479",
+    "fg_accent": "#212121",
     "bg_selection": "#1A2536",
     "fg_selection": "#6796E6",
     "bg_error": "#F44747",
     "fg_error": "#3D1212",
     "bg_warning": "#3D3019",
     "fg_warning": "#FFCB6B",
-    "bg_success": "#1A2536",
     "fg_success": "#C3E88D",
 }
 
@@ -40,8 +39,8 @@ c.colors.hints.bg = theme_colors['bg_menu']
 
 c.colors.statusbar.normal.fg = theme_colors['fg_menu']
 c.colors.statusbar.normal.bg = theme_colors['bg_menu']
-c.colors.statusbar.insert.fg = '#4b6e16'
-c.colors.statusbar.insert.bg = '#C3E88D'
+c.colors.statusbar.insert.fg = theme_colors['fg_accent']
+c.colors.statusbar.insert.bg = theme_colors['bg_accent']
 c.colors.statusbar.passthrough.fg = theme_colors['fg_menu']
 c.colors.statusbar.passthrough.bg = theme_colors['bg_menu']
 c.colors.statusbar.private.fg = theme_colors['fg_menu']
@@ -59,7 +58,8 @@ c.colors.statusbar.url.fg = theme_colors['fg_menu']
 c.colors.statusbar.url.error.fg = theme_colors['fg_error']
 c.colors.statusbar.url.warn.fg = theme_colors['bg_warning']
 c.colors.statusbar.url.hover.fg = theme_colors['fg_selection']
-c.colors.statusbar.url.success.https.fg = theme_colors['bg_success']
+c.colors.statusbar.url.success.http.fg = theme_colors['fg_success']
+c.colors.statusbar.url.success.https.fg = theme_colors['fg_success']
 
 c.colors.tabs.even.bg = theme_colors['bg_menu']
 c.colors.tabs.odd.bg = theme_colors['bg_menu']
