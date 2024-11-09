@@ -13,6 +13,7 @@ config.set('content.local_content_can_access_remote_urls', True, '*')
 config.set('input.insert_mode.auto_enter', True)
 config.set('input.insert_mode.auto_leave', True)
 config.set('input.insert_mode.leave_on_load', True)
+config.set('qt.force_platformtheme', 'dark')
 
 c.completion.open_categories = [
     'searchengines', 'quickmarks', 'bookmarks', 'history', 'filesystem'
@@ -77,6 +78,4 @@ c.colors.tabs.pinned.selected.odd.bg = theme_colors['bg_accent']
 c.colors.tabs.pinned.selected.even.fg = theme_colors['fg_accent']
 c.colors.tabs.pinned.selected.odd.fg = theme_colors['fg_accent']
 
-c.colors.webpage.bg = theme_colors["bg"]
-c.colors.webpage.darkmode.algorithm = 'lightness-cielab'
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = False
