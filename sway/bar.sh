@@ -5,5 +5,5 @@ do
     date=$(date "+%a %F | %H:%M")
 
     echo "$date"
-    sleep 1
+    sleep 60
 done 

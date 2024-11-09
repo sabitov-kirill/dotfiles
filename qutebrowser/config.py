@@ -10,6 +10,9 @@ config.set('content.headers.user_agent',
 config.set('content.images', True, '*')
 config.set('content.javascript.enabled', True, '*')
 config.set('content.local_content_can_access_remote_urls', True, '*')
+config.set('input.insert_mode.auto_enter', True)
+config.set('input.insert_mode.auto_leave', True)
+config.set('input.insert_mode.leave_on_load', True)
 
 c.completion.open_categories = [
     'searchengines', 'quickmarks', 'bookmarks', 'history', 'filesystem'

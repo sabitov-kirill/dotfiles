@@ -196,7 +196,7 @@ bindsym $mod+r mode "resize"
 # Visuals configuration:
 #
 default_border pixel 2
-client.focused #000000 #C3E88D #000000
+client.focused #000000 #93d479 #000000
 client.focused_inactive #000000 #424242 #000000
 client.unfocused #000000 #424242 #000000
 hide_edge_borders both
@@ -218,8 +218,8 @@ bar {
         statusline #ffffff
         background #1A1A1A
         focused_workspace #93d479 #93d479 #212121
-        active_workspace #32323200 #32323200 #5c5c5c
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        active_workspace #212121 #212121 #808080
+        inactive_workspace #212121 #212121 #808080
     }
 }
 
